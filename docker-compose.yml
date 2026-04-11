@@ -1,0 +1,42 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      SERVICE_PORT: ${SERVICE_PORT:-8000}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      HF_TOKEN: ${HF_TOKEN:-}
+      HF_HOME: ${HF_HOME:-/models/huggingface}
+      MODEL_DEVICE: ${MODEL_DEVICE:-cuda:0}
+      MODEL_USE_HALF_PRECISION: ${MODEL_USE_HALF_PRECISION:-false}
+      MODEL_BATCH_SIZE: ${MODEL_BATCH_SIZE:-8}
+      MODEL_SAMPLE_RATE_HZ: ${MODEL_SAMPLE_RATE_HZ:-16000}
+      WINDOW_SECONDS: ${WINDOW_SECONDS:-4.0}
+      HOP_SECONDS: ${HOP_SECONDS:-1.0}
+      SMOOTHING_SECONDS: ${SMOOTHING_SECONDS:-1.5}
+      SEGMENT_RESOLUTION_SECONDS: ${SEGMENT_RESOLUTION_SECONDS:-0.5}
+      MIN_SEGMENT_SECONDS: ${MIN_SEGMENT_SECONDS:-1.0}
+      MERGE_GAP_SECONDS: ${MERGE_GAP_SECONDS:-0.25}
+      STARTUP_TIMEOUT_SECONDS: ${STARTUP_TIMEOUT_SECONDS:-1800}
+      CATEGORICAL_MODEL_ID: ${CATEGORICAL_MODEL_ID:-3loi/SER-Odyssey-Baseline-WavLM-Categorical}
+      AVD_MODEL_ID: ${AVD_MODEL_ID:-3loi/SER-Odyssey-Baseline-WavLM-Multi-Attributes}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+    ports:
+      - "${SERVICE_PORT:-8000}:${SERVICE_PORT:-8000}"
+    gpus: all
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:${SERVICE_PORT:-8000}/healthz >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 80
+      start_period: 30s
+    restart: unless-stopped
+    volumes:
+      - hf-cache:${HF_HOME:-/models/huggingface}
+
+volumes:
+  hf-cache:
