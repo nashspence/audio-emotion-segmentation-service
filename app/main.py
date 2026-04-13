@@ -23,7 +23,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="emotion-diarization-service",
+    title="audio-emotion-segmentation-service",
     version="0.1.0",
     lifespan=lifespan,
 )
@@ -57,7 +57,7 @@ async def segment_audio(
     if not segmenter.is_ready:
         raise HTTPException(status_code=503, detail="Model service is still warming up.")
 
-    with tempfile.TemporaryDirectory(prefix="emotion-diarization-") as temp_dir:
+    with tempfile.TemporaryDirectory(prefix="audio-emotion-segmentation-") as temp_dir:
         temp_path = Path(temp_dir)
         audio_path = temp_path / (audio.filename or "audio.bin")
         audio_path.write_bytes(await audio.read())

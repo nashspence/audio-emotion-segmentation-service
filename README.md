@@ -1,4 +1,4 @@
-# emotion-diarization-service
+# audio-emotion-segmentation-service
 
 Minimal GPU-first HTTP service for speaker-aware speech emotion segmentation on diarized audio.
 

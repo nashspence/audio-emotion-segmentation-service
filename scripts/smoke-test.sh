@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT_ROOT=/workspaces/emotion-diarization-service
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 TMP_DIR="${PROJECT_ROOT}/tests/.tmp"
 
 cd "${PROJECT_ROOT}"

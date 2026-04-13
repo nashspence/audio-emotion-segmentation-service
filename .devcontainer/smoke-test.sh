@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd /workspaces/emotion-diarization-service
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$(cd "${SCRIPT_DIR}/.." && pwd)"
 bash scripts/smoke-test.sh
