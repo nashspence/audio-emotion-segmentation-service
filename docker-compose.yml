@@ -9,7 +9,7 @@ services:
       SERVICE_PORT: ${SERVICE_PORT:-8000}
       LOG_LEVEL: ${LOG_LEVEL:-info}
       HF_TOKEN: ${HF_TOKEN:-}
-      HF_HOME: ${HF_HOME:-/models/huggingface}
+      HF_HOME: ${HF_HOME:-/models/cache/huggingface}
       MODEL_DEVICE: ${MODEL_DEVICE:-cuda:0}
       MODEL_USE_HALF_PRECISION: ${MODEL_USE_HALF_PRECISION:-false}
       MODEL_BATCH_SIZE: ${MODEL_BATCH_SIZE:-8}
@@ -36,7 +36,4 @@ services:
       start_period: 30s
     restart: unless-stopped
     volumes:
-      - hf-cache:${HF_HOME:-/models/huggingface}
-
-volumes:
-  hf-cache:
+      - ${MODEL_CACHE_HOST_DIR:-./.cache/models/huggingface}:${HF_HOME:-/models/cache/huggingface}

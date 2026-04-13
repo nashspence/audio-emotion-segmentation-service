@@ -36,7 +36,7 @@ class Settings:
         "3loi/SER-Odyssey-Baseline-WavLM-Multi-Attributes",
     )
     huggingface_token: str | None = os.getenv("HF_TOKEN") or None
-    hf_home: Path = Path(_env("HF_HOME", "/models/huggingface"))
+    hf_home: Path = Path(_env("HF_HOME", "/models/cache/huggingface"))
     device: str = _env("MODEL_DEVICE", "cuda:0")
     use_half_precision: bool = _env_bool("MODEL_USE_HALF_PRECISION", False)
     batch_size: int = _env_int("MODEL_BATCH_SIZE", 8)

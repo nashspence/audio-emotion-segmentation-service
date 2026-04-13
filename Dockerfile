@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    HF_HOME=/models/huggingface \
+    HF_HOME=/models/cache/huggingface \
     SERVICE_PORT=8000
 
 RUN apt-get update \
